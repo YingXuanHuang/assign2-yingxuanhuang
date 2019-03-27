@@ -36,7 +36,7 @@ boolean groundhogIdle=true;
 
 void setup() {
   
-	size(640, 480, P2D);
+  size(640, 480, P2D);
 
   // image
   imgBg= loadImage("img/bg.jpg");
@@ -171,12 +171,18 @@ void draw() {
     
     // Grounghog boundary detection
     if(groundhogX<0){
+      leftPressed= false;
+      groundhogIdle=true;
       groundhogX=0;
     }
     if(groundhogX>width-SQUARE_UNIT){
+      rightPressed= false;
+      groundhogIdle=true;
       groundhogX=width-SQUARE_UNIT;
     }
     if(groundhogY>height-SQUARE_UNIT){
+      downPressed= false;
+      groundhogIdle=true;
       groundhogY=height-SQUARE_UNIT;
     }
     
