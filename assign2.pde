@@ -70,7 +70,7 @@ void setup() {
   //groundhog
   groundhogX=SQUARE_UNIT*4;
   groundhogY=SQUARE_UNIT;
-  groundhogSpeed+=80/15;
+  groundhogSpeed+=80/16;  // 15 change 16
 
 }
 
