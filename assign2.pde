@@ -191,6 +191,14 @@ void draw() {
         if(mousePressed){
          gameState=GAME_RUN;
          totalLife=2;
+         
+         // soldier move
+        soldierX =-SQUARE_UNIT;
+        soldierY =SQUARE_UNIT*floor(random(2,6));
+  
+        // cabbage move
+        cabbageX =SQUARE_UNIT*floor(random(0,6));
+        cabbageY =SQUARE_UNIT*floor(random(2,6));
         }
       }else{
         image(imgRestartNormal,BUTTON_X,BUTTON_Y);
