@@ -1,9 +1,11 @@
+// image
 PImage imgBg, imgLife1, imgLife2, imgLife3, imgSoil, imgSoldier;
 PImage imgGroundhogIdle, imgCabbage;
 PImage imgStart, imgGameOver, imgStartNormal, imgStartHovered;
 PImage imgRestartNormal, imgRestartHovered;
 PImage imgGroundhogDown, imgGroundhogLeft, imgGroundhogRight;
 
+// location
 int soldierX, soldierY;
 int cabbageX, cabbageY;
 int groundhogX, groundhogY, groundhogSpeed;
@@ -12,17 +14,24 @@ final int SQUARE_UNIT=80;
 final int BUTTON_X= 248;
 final int BUTTON_Y= 360;
 
+// life
 int totalLife=2;
 int score=1;
 
+// moveing
 boolean downPressed=false;
 boolean leftPressed=false;
 boolean rightPressed=false;
 
+
+// game
 final int GAME_START=0;
 final int GAME_RUN=1;
 final int GAME_OVER=2;
 int gameState=GAME_START;
+
+// grounghog image
+boolean groundhogIdle=true;
 
 
 void setup() {
@@ -61,7 +70,7 @@ void setup() {
   //groundhog
   groundhogX=SQUARE_UNIT*4;
   groundhogY=SQUARE_UNIT;
-  groundhogSpeed+=80;
+  groundhogSpeed+=80/15;
 
 }
 
@@ -121,30 +130,42 @@ void draw() {
     }
     
     // Grounghog move
-    image(imgGroundhogIdle,groundhogX,groundhogY);
+    
+    if(groundhogIdle){
+      image(imgGroundhogIdle,groundhogX,groundhogY);
+    }
     
     if(downPressed){
+      groundhogIdle=false;
+      image(imgGroundhogDown,groundhogX,groundhogY);
       leftPressed= false;
       rightPressed= false;
       groundhogY+=groundhogSpeed;
       if(groundhogY%80==0){
         downPressed= false;
+        groundhogIdle=true;
         }
     }
     if(leftPressed){
+      groundhogIdle=false;
+      image(imgGroundhogLeft,groundhogX,groundhogY);
       downPressed= false;
       rightPressed= false;
       groundhogX-=groundhogSpeed;
       if(groundhogX%80==0){
         leftPressed= false;
+        groundhogIdle=true;
         }
     }
     if(rightPressed){
+      groundhogIdle=false;
+      image(imgGroundhogRight,groundhogX,groundhogY);
       leftPressed= false;
       downPressed= false;
       groundhogX+=groundhogSpeed;
       if(groundhogX%80==0){
         rightPressed= false;
+        groundhogIdle=true;
         }
     }
     
@@ -176,8 +197,12 @@ void draw() {
     // soldier touch groundhog
     if(groundhogX<soldierX+SQUARE_UNIT && groundhogX+SQUARE_UNIT>soldierX
     && groundhogY<soldierY+SQUARE_UNIT && groundhogY+SQUARE_UNIT>soldierY){
+      groundhogIdle=true;
       groundhogX=SQUARE_UNIT*4;
       groundhogY=SQUARE_UNIT;
+      downPressed= false;
+      leftPressed= false;
+      rightPressed= false;
       totalLife-=score;
      }
     
@@ -222,23 +247,6 @@ void keyPressed(){
         break;
       case RIGHT:
         rightPressed = true;
-        break;
-    }
-  }
-}
-
-
-void keyReleased(){
-   if (key == CODED) {
-    switch (keyCode) {
-      case DOWN:
-        downPressed = false;
-        break;
-      case LEFT:
-        leftPressed = false;
-        break;
-      case RIGHT:
-        rightPressed = false;
         break;
     }
   }
