@@ -138,8 +138,6 @@ void draw() {
     if(downPressed){
       groundhogIdle=false;
       image(imgGroundhogDown,groundhogX,groundhogY);
-      leftPressed= false;
-      rightPressed= false;
       groundhogY+=groundhogSpeed;
       if(groundhogY%80==0){
         downPressed= false;
@@ -149,8 +147,6 @@ void draw() {
     if(leftPressed){
       groundhogIdle=false;
       image(imgGroundhogLeft,groundhogX,groundhogY);
-      downPressed= false;
-      rightPressed= false;
       groundhogX-=groundhogSpeed;
       if(groundhogX%80==0){
         leftPressed= false;
@@ -160,8 +156,6 @@ void draw() {
     if(rightPressed){
       groundhogIdle=false;
       image(imgGroundhogRight,groundhogX,groundhogY);
-      leftPressed= false;
-      downPressed= false;
       groundhogX+=groundhogSpeed;
       if(groundhogX%80==0){
         rightPressed= false;
@@ -247,12 +241,30 @@ void keyPressed(){
     switch (keyCode) {
       case DOWN:
         downPressed = true;
+        if(leftPressed){
+          downPressed = false;
+        }
+        if(rightPressed){
+          downPressed = false;
+        }
         break;
       case LEFT:
         leftPressed = true;
+        if(downPressed){
+          leftPressed = false;
+        }
+        if(rightPressed){
+          leftPressed = false;
+        }
         break;
       case RIGHT:
         rightPressed = true;
+        if(leftPressed){
+          rightPressed = false;
+        }
+        if(downPressed){
+          rightPressed = false;
+        }
         break;
     }
   }
